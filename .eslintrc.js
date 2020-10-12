@@ -16,7 +16,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': 'error',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': 'error',
     'no-console': 'off',
     'func-names': 'off',
     'no-plusplus': [2, { allowForLoopAfterthoughts: true }],
