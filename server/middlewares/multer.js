@@ -28,18 +28,20 @@ const fileFilter = (req, file, cb) => {
   );
 };
 
-// this function is the middleware function
+// this function is the middleware function of multer
 const upload = multer({
   storage, // define a storage location for our files
   limits: { fileSize: 1000000 }, // this is the file size limit
   fileFilter,
 }).single('img'); // <-- file name to upload the file.
 
+// This is a middleware function to validate errors and upload files
 const uploadImage = async (req, res, next) => {
   try {
     const fileSaved = await new Promise((resolve, reject) => {
       upload(req, res, (err) => {
         const { file } = req;
+
         if (err instanceof multer.MulterError) {
           // A Multer error occurred when uploading.
           const error = { rqStatus: 400, err };
@@ -47,6 +49,15 @@ const uploadImage = async (req, res, next) => {
         } else if (err) {
           // An unknown error occurred when uploading.
           const error = { rqStatus: 400, err };
+          reject(error);
+        }
+
+        if (!file) {
+          // An error occurred when the file is not uploaded
+          const error = {
+            rqStatus: 400,
+            err: { message: 'file not uploaded.' },
+          };
           reject(error);
         }
 
@@ -59,8 +70,8 @@ const uploadImage = async (req, res, next) => {
     next();
   } catch (error) {
     const { rqStatus, err } = error;
-    console.log(err);
     res.status(rqStatus).json({
+      ok: false,
       message: err.message,
     });
   }

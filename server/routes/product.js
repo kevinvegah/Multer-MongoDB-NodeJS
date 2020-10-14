@@ -12,4 +12,16 @@ const Controller = require('../controllers/product');
 
 app.post('/product', [uploadImage], Controller.postProduct);
 
+// ==========================
+// Get all products
+// ==========================
+
+app.get('/product', Controller.getAllProducts);
+
+// ==========================
+// Update a product
+// ==========================
+
+app.put('/product/:id', Controller.updateProduct);
+
 module.exports = app;
