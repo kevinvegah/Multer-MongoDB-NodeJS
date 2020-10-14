@@ -2,12 +2,10 @@ const express = require('express');
 
 const app = express();
 
+const Controller = require('../controllers/images');
 // ============================
-// Import the routes
+// Get and show image
 // ============================
-
-app.use(require('./product'));
-app.use(require('./upload'));
-app.use(require('./images'));
+app.get('/image/:img', Controller.getAndShowImage);
 
 module.exports = app;
