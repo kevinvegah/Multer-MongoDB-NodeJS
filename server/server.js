@@ -1,11 +1,11 @@
-require("./config/config");
+require('./config/config');
 
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 
-const bodyParser = require("body-parser"); // allows us set data.
+const bodyParser = require('body-parser'); // allows us set data.
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,17 +14,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Global route configuration
-app.use(require("./routes/index"));
+app.use(require('./routes/index'));
 
 // DB Connection
 mongoose.connect(
   process.env.URLDB, // comes from config.js
   { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
-  (err, res) => {
+  (err) => {
     if (err) {
       throw err;
     }
-    console.log("ONLINE database");
+    console.log('ONLINE database');
   }
 );
 
