@@ -7,7 +7,7 @@ const { uploadImage } = require('../middlewares/multer');
 const Controller = require('../controllers/product');
 
 // ==========================
-// Create a new product
+// Create product
 // ==========================
 
 app.post('/product', [uploadImage], Controller.postProduct);
@@ -19,9 +19,15 @@ app.post('/product', [uploadImage], Controller.postProduct);
 app.get('/product', Controller.getAllProducts);
 
 // ==========================
-// Update a product
+// Update product
 // ==========================
 
 app.put('/product/:id', Controller.updateProduct);
+
+// ==========================
+// Delete product
+// ==========================
+
+app.delete('/product/:id', Controller.deleteProduct);
 
 module.exports = app;

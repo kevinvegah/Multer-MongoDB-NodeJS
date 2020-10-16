@@ -36,7 +36,7 @@ const uploadImageById = (req, res) => {
       return res.status(400).json({
         ok: false,
         err: {
-          message: 'Product no found.',
+          message: 'Product not found.',
         },
       });
     }
@@ -60,4 +60,4 @@ const uploadImageById = (req, res) => {
   });
 };
 
-module.exports = { uploadImageById };
+module.exports = { uploadImageById, deleteFile };
