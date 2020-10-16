@@ -52,8 +52,7 @@ Once the application is executed correctly, we can use the url `http://localhost
 
 ## Documentation API
 
-You can use the next endpoints:
+If you want to know how to interact with this application, you can consult the documentation of the endpoints in the following link:
 
-```
-add the routes here.
-```
+Link: https://documenter.getpostman.com/view/7982338/TVRq2Rat
+
