@@ -28,12 +28,12 @@ const fileFilter = (req, file, cb) => {
   );
 };
 
-// this function is the middleware function of multer
+// this is the middleware function of multer
 const upload = multer({
   storage, // define a storage location for our files
   limits: { fileSize: 1000000 }, // this is the file size limit
   fileFilter,
-}).single('img'); // <-- file name to upload the file.
+}).single('img'); // <-- field name to upload the file.
 
 // This is a middleware function to validate errors and upload files
 const uploadImage = async (req, res, next) => {
