@@ -23,7 +23,7 @@ const uploadImageById = (req, res) => {
   Product.findById(id, (err, productFound) => {
     const productDB = productFound;
     if (err) {
-      // Nota: even if an error occurs, the image is uploaded. deleteFile is the solution
+      // Nota: even if an error occurs, the image is uploaded. So, deleteFile is the solution
       deleteFile(file); // --> Delete the image just uploaded
       return res.status(500).json({
         ok: false,
