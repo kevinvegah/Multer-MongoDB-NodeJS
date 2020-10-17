@@ -1,8 +1,9 @@
 const _ = require('underscore');
 const Product = require('../models/product');
+const { deleteFile } = require('./upload');
 
 // ============================
-// Create a product
+// Create product
 // ============================
 const postProduct = (req, res) => {
   const { body, file } = req;
@@ -33,7 +34,7 @@ const postProduct = (req, res) => {
 };
 
 // ==========================
-// Get products
+// Get all products
 // ==========================
 const getAllProducts = (req, res) => {
   Product.find({}) // -> Filter information
@@ -63,7 +64,7 @@ const getAllProducts = (req, res) => {
 };
 
 // ==========================
-// Update a product
+// Update product
 // ==========================
 const updateProduct = (req, res) => {
   const { id } = req.params;
@@ -86,7 +87,7 @@ const updateProduct = (req, res) => {
         return res.status(400).json({
           ok: false,
           err: {
-            message: 'Id product no found.',
+            message: 'Product Id no found.',
           },
         });
       }
@@ -99,8 +100,42 @@ const updateProduct = (req, res) => {
   );
 };
 
+// ============================
+// Delete Product
+// ============================
+const deleteProduct = (req, res) => {
+  const { id } = req.params;
+
+  Product.findByIdAndRemove(id, (err, productDeleted) => {
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        err,
+      });
+    }
+
+    if (!productDeleted) {
+      return res.status(400).json({
+        ok: false,
+        err: {
+          message: 'product Id no found.',
+        },
+      });
+    }
+
+    deleteFile(productDeleted.img); // delete image from uploads img folder
+
+    return res.json({
+      ok: true,
+      product: productDeleted,
+      message: 'The product was deleted',
+    });
+  });
+};
+
 module.exports = {
   postProduct,
   getAllProducts,
   updateProduct,
+  deleteProduct,
 };
